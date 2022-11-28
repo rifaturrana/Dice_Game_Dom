@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Game</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <h1 style="text-align: center">Dice Game</h1>
+    <br />
+
+    <div class="pictures">
+      <img />
+    </div>
+
+    <br />
+    <div class="container">
+      <div class="buttons">
+        <button>Player one</button>
+        <button>Player Two</button>
+      </div>
+      <div class="hero">
+        <div class="playerOneDiv">
+          <h4>Player One</h4>
+          <p class="times">1st time Roll: 0</p>
+          <p class="total">Total Score: 0</p>
+        </div>
+        <div class="playerTwoDiv">
+          <h4>Player Two</h4>
+          <p class="timeTwo">1st time Roll: 0</p>
+          <p class="totalTwo">Total Score: 0</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let playerOne = document.querySelector("button");
+      let playerTwo = document.querySelector("button:nth-child(2)");
+      let p = document.querySelector(".times");
+      const totalScoreDisplay = document.querySelector(".total");
+      let p1 = document.querySelector(".timeTwo");
+      const totalScoreDisplay1 = document.querySelector(".totalTwo");
+      let buttons = document.querySelector(".buttons");
+      let container = document.querySelector(".container");
+      let hero = document.querySelector(".hero");
+      let image = document.querySelector("img");
+      let div = document.querySelector(".pictures");
+      let playerOneDiv = document.querySelector(".playerOneDiv");
+      let playerTwoDiv = document.querySelector(".playerTwoDiv");
+      image.style.width = "200px";
+      image.style.height = "200px";
+      div.style.boxShadow =
+        " rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset";
+
+      div.style.borderRadius = "5px";
+      div.style.display = "flex";
+      div.style.width = "200px";
+      div.style.justifyContent = "center";
+      div.style.alignItems = "center";
+      div.style.padding = "10px";
+      div.style.margin = "0 auto";
+
+      buttons.style.margin = "5px 0";
+      buttons.style.marginLeft = "20px";
+      buttons.style.padding = "30px";
+      buttons.style.display = "flex";
+      buttons.style.justifyContent = "space-around";
+      playerOne.style.padding = "15px";
+      playerOne.style.borderRadius = "5px";
+      playerOne.style.border = "none";
+      playerOne.style.backgroundColor = "#A9FA61";
+      playerOne.style.color = "black";
+      playerOne.style.cursor = "pointer";
+      playerOne.style.fontWeight = "bold";
+      playerTwo.style.padding = "15px";
+      playerTwo.style.borderRadius = "5px";
+      playerTwo.style.border = "none";
+      playerTwo.style.backgroundColor = "#ABE541";
+      playerTwo.style.color = "black";
+      playerTwo.style.cursor = "pointer";
+      playerTwo.style.fontWeight = "bold";
+
+      hero.style.display = "flex";
+      hero.style.alignItems = "center";
+      hero.style.padding = "10px";
+      hero.style.margin = "20px";
+      hero.style.display = "flex";
+      hero.style.justifyContent = "space-around";
+
+      playerOneDiv.style.position = "relative";
+      playerOneDiv.style.top = "-50px";
+      playerOneDiv.style.left = "20px";
+      playerOneDiv.style.width = "200px";
+      playerOneDiv.style.display = "flex";
+      playerOneDiv.style.flexDirection = "column";
+      playerOneDiv.style.alignItems = "center";
+      playerOneDiv.style.boxShadow =
+        " rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset";
+
+      playerOneDiv.style.borderRadius = "5px";
+      playerTwoDiv.style.position = "relative";
+      playerTwoDiv.style.top = "-50px";
+
+      playerTwoDiv.style.width = "200px";
+      playerTwoDiv.style.display = "flex";
+      playerTwoDiv.style.flexDirection = "column";
+      playerTwoDiv.style.alignItems = "center";
+      playerTwoDiv.style.boxShadow =
+        " rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset";
+
+      playerTwoDiv.style.borderRadius = "5px";
+      document.body.style.backgroundImage = "url('images/bg.jpg')";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundPosition = "center";
+
+      let playerOneScoreArray = [];
+      let playerTwoScoreArray = [];
+
+      playerOne.addEventListener("click", function () {
+        playerTwo.style.backgroundColor = "#ABE541";
+        playerTwo.removeAttribute("disabled");
+        let playerOneScore = Math.floor(Math.random() * 6) + 1;
+        showPictures(playerOneScore);
+        console.log(playerOneScore);
+        playerOneScoreArray.push(playerOneScore);
+        console.log(playerOneScoreArray);
+        playerOne.setAttribute("disabled", "disabled");
+        playerOne.style.backgroundColor = "grey";
+
+        let totalScore1 = 0;
+        for (let i = 0; i < playerOneScoreArray.length; i++) {
+          p.textContent = `${i + 1} time Score: ${playerOneScoreArray[i]}`;
+          totalScore1 += playerOneScoreArray[i];
+          console.log(totalScore1);
+          totalScoreDisplay.innerHTML = `Total Score: ${totalScore1}`;
+          document
+            .querySelector(".playerOneDiv")
+            .appendChild(totalScoreDisplay);
+        }
+        if (totalScore1 >= 15) {
+          alert("Player One Wins !!! Refresh to Restart!!");
+          playerOne.setAttribute("disabled", "disabled");
+          playerTwo.setAttribute("disabled", "disabled");
+        }
+      });
+
+      playerTwo.addEventListener("click", function () {
+        playerOne.style.backgroundColor = "#A9FA61";
+        playerOne.removeAttribute("disabled");
+        let playerTwoScore = Math.floor(Math.random() * 6) + 1;
+        showPictures(playerTwoScore);
+
+        console.log(playerTwoScore);
+        playerTwoScoreArray.push(playerTwoScore);
+        console.log(playerTwoScoreArray);
+        playerTwo.setAttribute("disabled", "disabled");
+        playerTwo.style.backgroundColor = "grey";
+        let totalScore2 = 0;
+        for (let i = 0; i < playerTwoScoreArray.length; i++) {
+          p1.textContent = `${i + 1} time Score: ${playerTwoScoreArray[i]}`;
+          totalScore2 += playerTwoScoreArray[i];
+          console.log(totalScore2);
+          totalScoreDisplay1.innerHTML = `Total Score: ${totalScore2}`;
+          document
+            .querySelector(".playerTwoDiv")
+            .appendChild(totalScoreDisplay1);
+        }
+        if (totalScore2 >= 15) {
+          alert("Player Two Wins!!! Refresh to Restart!!");
+          playerOne.setAttribute("disabled", "disabled");
+          playerTwo.setAttribute("disabled", "disabled");
+        }
+      });
+
+      function showPictures(value) {
+        switch (value) {
+          case 1:
+            image.src = "images/one.png";
+            break;
+          case 2:
+            image.src = "images/two.png";
+            break;
+          case 3:
+            image.src = "images/three.png";
+            break;
+          case 4:
+            image.src = "images/four.png";
+            break;
+          case 5:
+            image.src = "images/five.png";
+            break;
+          case 6:
+            image.src = "images/six.png";
+            break;
+          default:
+            image.src = "";
+        }
+      }
+    </script>
+  </body>
+</html>
